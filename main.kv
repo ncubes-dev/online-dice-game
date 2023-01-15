@@ -1,0 +1,66 @@
+MainInterface:
+<MainInterface>:
+    Screen:
+        BoxLayout:
+            orientation: 'vertical' 
+            padding: dp(50)
+            spacing: dp(20)
+            TextInput:
+                hint_text:'enter the ip address'
+                id: text_input
+            Button:
+                text:'connect'
+                id: connect_button
+                on_release: app.root.current='game_screen'
+                on_press: root.connect_to_server()
+
+    Screen:
+        name:'game_screen'
+        BoxLayout:
+            BoxLayout:
+                orientation: 'vertical' 
+                size_hint_x: .2    
+                Label:
+                    text: 'Player'
+                    font_size:int(root.width/30)
+                    font_name: "fonts/LCD-BOLD.TTF"
+                    color: 1,0,0,1
+
+                Button:
+                    text: 'ROLL'
+                    on_press: root.roll()
+                    
+            BoxLayout:
+                size_hint_x: .6 
+                canvas.before:
+                    Rectangle:
+                        size:self.size
+                        pos:self.pos
+                        source:'table.jpg' 
+                RelativeLayout:  
+                    canvas:
+                        Rectangle:
+                            size:self.width*.5, self.width*.5
+                            source: root.dice
+                            pos:self.width/2-self.width*.25, self.height/2-self.width*.25
+            BoxLayout:
+                orientation: 'vertical' 
+                size_hint_x: .2   
+                Label:
+                    text: 'Challenger'
+                    font_size:int(root.width/30)
+                    font_name: "fonts/LCD-BOLD.TTF"
+                    color: 1,0,0,1
+    Screen:
+        name: '3'
+        Label:
+            text: f'YOU {root.state}! '
+            font_size:int(root.width/15)
+            font_name: "fonts/LCD-BOLD.TTF"
+            color: 1,0,0,1 
+        Button:
+            size_hint: None, None
+            text:'RESTART'
+            size: dp(100), dp(48)
+            pos: root.width*.5-dp(50), root.height*.3
+            on_release: root.synchro_reset()
